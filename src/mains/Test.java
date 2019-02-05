@@ -14,7 +14,7 @@ public class Test {
 		//char x;
 		Terrain[][] circuit1 = TerrainTools.lectureFichier("1_safe.trk");
 		if(circuit1==null) {System.out.println("null");}
-
+                  // test pull
  		/*for(int i=0;i<768;i++) {
 			for(int j=0;j<1024;j++) {
 				x=TerrainTools.charFromTerrain(circuit1[i][j]);
