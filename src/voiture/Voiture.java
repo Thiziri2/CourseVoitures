@@ -9,7 +9,8 @@ public interface Voiture {
 
     // pour l'observation
     public double getVitesse();
-    public Vecteur getPosition();
+    // retourne la position
+	public Vecteur getPosition();
     public Vecteur getDirection();
     public double getBraquage();
 }
