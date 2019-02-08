@@ -63,11 +63,10 @@ public class TerrainTools {
 			FileInputStream f=new FileInputStream(fichier);
 		   in = new BufferedReader(new InputStreamReader(f));
 		   
-		   String ligne = in.readLine();
+		   String ligne;
 		   
-		   int nbc=Integer.parseInt(ligne);
-		   ligne = in.readLine();
-		   int nbl=Integer.parseInt(ligne);
+		   int nbc=Integer.parseInt(in.readLine());
+		   int nbl=Integer.parseInt(in.readLine());
 		   Terrain t[][]=new Terrain[nbl][nbc];
 		    
 		   char tab[]=new char[nbc];
@@ -91,12 +90,12 @@ public class TerrainTools {
 	
 
 	public static BufferedImage imageFromCircuit(Terrain[][] track) {
-		BufferedImage img = new BufferedImage(1024, 768, BufferedImage.TYPE_INT_ARGB);
+		BufferedImage img = new BufferedImage(768, 1024, BufferedImage.TYPE_INT_ARGB);
  		Graphics g = img.getGraphics();
  		for(int i=0;i<1024;i++) {
  			for(int j=0;j<768;j++) {
  				g.setColor(terrainToRGB(track[j][i]));
- 				g.drawLine(i, j, i, j);
+ 				g.drawLine(j, i, j, i);
  			}
  		}
  	    try {

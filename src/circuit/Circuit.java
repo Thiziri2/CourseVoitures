@@ -16,4 +16,5 @@ public interface Circuit {
         public ArrayList<Vecteur> getArrivees();
 
         public double getDist(int i, int j);
+        public Terrain[][] getMatrix();
 }

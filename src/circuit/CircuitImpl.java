@@ -20,12 +20,13 @@ public class CircuitImpl implements Circuit{
 	public CircuitImpl(Terrain[][] T){
 		matrice=T;
 	}
+	
 	public Terrain getTerrain(int i, int j) {
 		return matrice[i][j];
 	}
 	public Terrain getTerrain(Vecteur v) {
 		return matrice[(int)v.getX()][(int)v.getY()];
-		//pas trop compris 
+//renvoie l'elément en position v.x,v.y du terrain)
 	}
 	public Vecteur getPointDepart() {
 		return ptDepart;
@@ -54,5 +55,22 @@ public class CircuitImpl implements Circuit{
 		Vecteur v=new Vecteur(i,j);
 		return v.norme();
 	}
+
+	public Terrain[][] getMatrix() {
+		
+		return this.matrice;
+	}
+	
+	  public static Vecteur getStart(Terrain[][] T) {
+		  Vecteur start=null;
+		  for(int i=0;i<T.length;i++) {
+			  for(int j=0;j<T[0].length;j++) {
+				  if(T[i][j]==Terrain.StartPoint) {
+					  start=new Vecteur(i,j);
+				  }
+			  }
+		  }
+		  return start;
+	  }
 
 }

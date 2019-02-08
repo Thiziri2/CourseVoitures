@@ -3,9 +3,16 @@ package circuit;
 import enums.Terrain;
 import geometrie.Vecteur;
 
-public class CircuitFactoryFromFile {
-	  public final Vecteur dirDepart = new Vecteur(0,1);
-	  public final Vecteur dirArrivee = new Vecteur(0,1);
+public class CircuitFactoryFromFile extends CircuitImpl{
+	
+	  public final static Vecteur dirDepart = new Vecteur(0,1);
+	  public final static Vecteur dirArrivee = new Vecteur(0,1);
+	  
+	  public CircuitFactoryFromFile(String filename) {
+		  super(TerrainTools.lectureFichier(filename),CircuitImpl.getStart(TerrainTools.lectureFichier(filename)),dirDepart,dirArrivee);
+		  
+		  }
+		
 	  
 	  public static Circuit build(String filename){
 		  Terrain[][] matrice=TerrainTools.lectureFichier(filename);
