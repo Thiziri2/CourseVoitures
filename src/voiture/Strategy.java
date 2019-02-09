@@ -1,5 +1,5 @@
 package voiture;
 
-public interface Strategy {   
-    public Commande getCommande(); 
+public interface Strategy {
+	public Commande getCommande(); 
 }

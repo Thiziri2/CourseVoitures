@@ -1,5 +1,4 @@
 package voiture;
-import voiture.VoitureImpl;;
 
 public class Commande {
 	 private double acc;

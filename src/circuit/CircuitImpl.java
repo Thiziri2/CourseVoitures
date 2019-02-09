@@ -17,10 +17,14 @@ public class CircuitImpl implements Circuit{
 		this.sensDepart=sensDepart;
 		this.sensArrivee=sensArrivee;
 	}
+
+	public void setPtDepart(Vecteur ptDepart) {
+		this.ptDepart = ptDepart;
+	}
+
 	public CircuitImpl(Terrain[][] T){
 		matrice=T;
 	}
-	
 	public Terrain getTerrain(int i, int j) {
 		return matrice[i][j];
 	}
@@ -57,7 +61,6 @@ public class CircuitImpl implements Circuit{
 	}
 
 	public Terrain[][] getMatrix() {
-		
 		return this.matrice;
 	}
 	

@@ -1,5 +1,6 @@
 package mains;
 import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -15,45 +16,52 @@ import javax.imageio.ImageIO;
 import circuit.*;
 import voiture.*;
 
-
 public class Test {
 	public static void main(String[] args) throws IOException {
-		Circuit circuit=new CircuitFactoryFromFile("1_safe.trk");
+		Circuit circuit=CircuitFactoryFromFile.build("1_safe.trk");
+		//pour la creation d'un circuit pas besoin d'un constructeur vu quon a la methose static build qui s'applique directement a sa class
+		//c'est pour ca que le constructeur de curcuitFactoryFromFile est vide il sert juste a ne pas faire une erreure
+		//idem pour voiture
+		Voiture v1=VoitureFactory.build(circuit);
 		Terrain[][] track=circuit.getMatrix();
-		Voiture v1=new VoitureFactory(circuit);
 		ArrayList<Commande> liste1 = new ArrayList<Commande>();
 		ArrayList<Commande> liste2 = new ArrayList<Commande>();
 		ArrayList<Commande> liste3 = new ArrayList<Commande>();
-		
-		double x,y;
-	
+		double x;
 		for(int i=0;i<100;i++) {
+			//x=1-Math.random()*2;
 			x=(1-Math.random())*v1.getMaxTurn();
-			//y=1-Math.random()*2;
-			
 			liste1.add(i,new Commande(x, 0));
 			liste2.add(i,new Commande(x, 0));
 			liste3.add(i,new Commande(x, 0));
 		}
 		for(int i=100;i<200;i++) {
 			x=(1-Math.random())*v1.getMaxTurn();
-			
 			liste2.add(i,new Commande(x, 1));
 			liste3.add(i,new Commande(x, -1));
 		}
 		System.out.println(circuit.getPointDepart());
-		 System.out.println(v1.getPosition());
-		 
-
-		 
-		 //System.out.println(v1.getPosition());
+		System.out.println(v1.getPosition());
 		
 		BufferedImage im=TerrainTools.imageFromCircuit(track);
 		Graphics g = im.getGraphics();
-		 g.setColor(Color.BLACK);
+		g.setColor(Color.BLACK);
 		 
-		 for(int i=0;i<liste2.size();i++) {
+		 for(int i=0;i<liste1.size();i++) {
+			 v1.drive(liste1.get(i));
+			 int vx=(int) v1.getPosition().x;
+			 int vy=(int) v1.getPosition() .y;
+			 	g.drawLine(vx,vy,vx,vy);
+		 }
+		for(int i=0;i<liste2.size();i++) {
 			 v1.drive(liste2.get(i));
+			 int vx=(int) v1.getPosition().x;
+			 int vy=(int) v1.getPosition() .y;
+			 	g.drawLine(vx,vy,vx,vy);
+			 
+		 }
+		 for(int i=0;i<liste3.size();i++) {
+			 v1.drive(liste3.get(i));
 			 int vx=(int) v1.getPosition().x;
 			 int vy=(int) v1.getPosition() .y;
 			 	g.drawLine(vx,vy,vx,vy);
