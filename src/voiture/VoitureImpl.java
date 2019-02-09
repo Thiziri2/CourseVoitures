@@ -60,7 +60,7 @@ public class VoitureImpl implements Voiture {
 	}
 	
 	
-	private  void driveSansDerapage (Commande c)  {
+	/*private  void driveSansDerapage (Commande c)  {
 	//  approche normale
 	//  1)gestion du  volant
 	direction=direction.rotation(braquage * c.getTurn());
@@ -75,7 +75,7 @@ public class VoitureImpl implements Voiture {
 	vitesse = Math.min(vmax,vitesse);
 	//  3)  mise  à  jour  de  la  position
 		position=position.addition(direction.multiplication(vitesse));
-	}
+	}*/
 	
 	
 	public double getMaxTurn() {

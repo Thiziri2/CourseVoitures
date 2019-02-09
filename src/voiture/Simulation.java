@@ -1,5 +1,13 @@
 package voiture;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import circuit.Circuit;
 import enums.Terrain;
 
@@ -13,10 +21,22 @@ public class Simulation {
 		this.voiture = v;
 		this.strategy = s;
 	}
-	public void play(){
+	public void play(BufferedImage im){
+		Graphics g = (Graphics) im.getGraphics();
+		g.setColor(Color.BLACK);
 		while(circuit.getTerrain(voiture.getPosition())==Terrain.Route){	
 			voiture.drive(strategy.getCommande());
+			System.out.println(voiture.getPosition());
+			 int vx=(int) voiture.getPosition().x;
+			 int vy=(int) voiture.getPosition() .y;
+			 	g.drawLine(vx,vy,vx,vy);
 		}
+		try {
+            File outputfile = new File("saved.png");
+            ImageIO.write(im, "png", outputfile);
+         } catch (IOException e) {
+            System.out.println("Erreur lors de la sauvegarde");
+         }
 		
 	}
 	public void playOneShot() throws VoitureException{
@@ -26,4 +46,9 @@ public class Simulation {
 	// MAJ Etat
 	//state = updateState();
 	}
+	
+	/*public void Affichage(BufferedImage im){
+		Graphics g = (Graphics) im.getGraphics();
+		g.setColor(Color.BLACK);
+	}*/
 }

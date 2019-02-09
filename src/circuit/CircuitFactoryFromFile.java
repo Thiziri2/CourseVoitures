@@ -11,7 +11,7 @@ public class CircuitFactoryFromFile{
 	  public CircuitFactoryFromFile(String filename){
 		  super();
 		  }
-	  //pour la position de depart je l'est intégré dans build circuit
+	  //pour la position de depart je l'est intï¿½grï¿½ dans build circuit
 	  public static Circuit build(String filename){
 		  Terrain[][] matrice=TerrainTools.lectureFichier(filename);
 		  CircuitImpl C=new CircuitImpl(matrice);
