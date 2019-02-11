@@ -40,7 +40,8 @@ public class VoitureImpl implements Voiture {
       }
       // 2) Est ce que la rotation demand�e est compatible avec la vitesse actuelle, sinon, throw new RuntimeException
       /*if((c.getTurn()<=-getMaxTurn())||(c.getTurn()>=getMaxTurn())) {
-      	  throw new RuntimeException();
+      	  System.out.println(c.getTurn());
+    	  throw new RuntimeException();
       }*/
       // approche normale
       // 1.1) gestion du volant

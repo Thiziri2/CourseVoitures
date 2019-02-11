@@ -1,7 +1,7 @@
 package mains;
 import java.awt.Color;
 
-import java.awt.Graphics;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import voiture.*;
 public class Test {
 	public static void main(String[] args) throws IOException {
 		Circuit circuit=CircuitFactoryFromFile.build("1_safe.trk");
-		//pour la creation d'un circuit pas besoin d'un constructeur vu quon a la methose static build qui s'applique directement a sa class
+		//pour la creation d'un circuit pas besoin d'un constructeur vu qu'on a la methode static build qui s'applique directement a sa class
 		//c'est pour ca que le constructeur de curcuitFactoryFromFile est vide il sert juste a ne pas faire une erreure
 		//idem pour voiture
 		Voiture v1=VoitureFactory.build(circuit);
@@ -29,8 +29,9 @@ public class Test {
 		ArrayList<Commande> liste3 = new ArrayList<Commande>();
 		double x;
 		for(int i=0;i<100;i++) {
-			//x=1-Math.random()*2;
-			x=(1-Math.random())*v1.getMaxTurn();
+			x=Math.random()*(2*v1.getMaxTurn())-v1.getMaxTurn();
+			//x=(1-Math.random())*v1.getMaxTurn();(avec cette formule on a que des nombre positif c'est entre 0  et 1
+			System.out.println(x);
 			liste1.add(i,new Commande(x, 0));
 			liste2.add(i,new Commande(x, 0));
 			liste3.add(i,new Commande(x, 0));
@@ -44,27 +45,23 @@ public class Test {
 		System.out.println(v1.getPosition());
 		
 		BufferedImage im=TerrainTools.imageFromCircuit(track);
-		Graphics g = im.getGraphics();
-		g.setColor(Color.BLACK);
-		 
 		 for(int i=0;i<liste1.size();i++) {
 			 v1.drive(liste1.get(i));
 			 int vx=(int) v1.getPosition().x;
 			 int vy=(int) v1.getPosition() .y;
-			 	g.drawLine(vx,vy,vx,vy);
+			 im.setRGB(vx,vy,Color.BLACK.getRGB() );
 		 }
 		for(int i=0;i<liste2.size();i++) {
 			 v1.drive(liste2.get(i));
 			 int vx=(int) v1.getPosition().x;
 			 int vy=(int) v1.getPosition() .y;
-			 	g.drawLine(vx,vy,vx,vy);
-			 
+			 im.setRGB(vx,vy,Color.BLACK.getRGB() );
 		 }
 		 for(int i=0;i<liste3.size();i++) {
 			 v1.drive(liste3.get(i));
 			 int vx=(int) v1.getPosition().x;
 			 int vy=(int) v1.getPosition() .y;
-			 	g.drawLine(vx,vy,vx,vy);
+			 im.setRGB(vx,vy,Color.BLACK.getRGB() );
 		 }
 		 try {
 	            File outputfile = new File("saved.png");
@@ -72,7 +69,7 @@ public class Test {
 	         } catch (IOException e) {
 	            System.out.println("Erreur lors de la sauvegarde");
 	         }
-		 
+		
 		//System.out.println(liste1.get(2).getAcc());
 		
 		//System.out.println(TerrainTools.terrainToRGB(Terrain.Eau));
@@ -90,7 +87,6 @@ public class Test {
 			System.out.print('\n');
 		}
 		//
-		
  		TerrainTools.imageFromCircuit(circuit1);*/
 
 	}

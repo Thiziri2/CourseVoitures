@@ -25,13 +25,16 @@ public class CircuitImpl implements Circuit{
 	public CircuitImpl(Terrain[][] T){
 		matrice=T;
 	}
+	
 	public Terrain getTerrain(int i, int j) {
 		return matrice[i][j];
 	}
+	
 	public Terrain getTerrain(Vecteur v) {
 		return matrice[(int)v.getX()][(int)v.getY()];
 //renvoie l'elément en position v.x,v.y du terrain)
 	}
+	
 	public Vecteur getPointDepart() {
 		return ptDepart;
 	}

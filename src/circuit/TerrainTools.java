@@ -1,13 +1,11 @@
 package circuit;
 
 import java.awt.Color;
+
 import java.awt.image.BufferedImage;
 
 import enums.Terrain;
 import exceptions.TerrainException;
-
-
-import java.awt.Graphics;
 
 import java.io.*;
 import javax.imageio.ImageIO;
@@ -57,6 +55,7 @@ public class TerrainTools {
 		return true;
 	else return false;
 	}
+	
 	public static Terrain[][] lectureFichier(String fichier){
 		BufferedReader in=null;
 		try { 
@@ -88,14 +87,15 @@ public class TerrainTools {
 		return null; 
 	}
 	
-
 	public static BufferedImage imageFromCircuit(Terrain[][] track) {
-		BufferedImage img = new BufferedImage(768, 1024, BufferedImage.TYPE_INT_ARGB);
- 		Graphics g = img.getGraphics();
- 		for(int i=0;i<1024;i++) {
- 			for(int j=0;j<768;j++) {
- 				g.setColor(terrainToRGB(track[j][i]));
- 				g.drawLine(j, i, j, i);
+		BufferedImage img = new BufferedImage(track.length, track[0].length, BufferedImage.TYPE_INT_ARGB);
+		//la matrice est horizontale et l'image est verticale il faut juste garder en tete 
+		//que quand on avance a droite dans la matrice on descend dans l'image  
+		for(int i=0;i<track.length;i++) {
+ 			for(int j=0;j<track[0].length;j++) {
+ 				//g.setColor(terrainToRGB(track[j][i]));
+ 				//g.drawLine(j, i, j, i);
+ 				img.setRGB(i,j,terrainToRGB(track[i][j]).getRGB() );
  			}
  		}
  	    try {
