@@ -19,8 +19,7 @@ import circuit.TerrainTools;
 
 public class TestMethodes {
 	  public static void main(String[] args) throws VoitureException, IOException {
-          String filename = "1_safe.trk";
-
+          String filename = "1_safe.trk"; 
           Circuit track = CircuitFactoryFromFile.build(filename); // factory static
           Voiture v = VoitureFactory.build(track); // factory static
 
@@ -41,5 +40,6 @@ public class TestMethodes {
           im.setRGB(0,0, (int)Color.BLACK.getRed());
           ImageIO.write(im, "png", new File("test.png"));
   }
+
 
 }

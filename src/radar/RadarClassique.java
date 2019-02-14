@@ -6,12 +6,12 @@ import enums.Terrain;
 import voiture.Voiture;
 
 public class RadarClassique implements Radar {
-	private Vecteur[] faisceaux; 
+	private double[] faisceaux; 
 	private Voiture voiture;
 	private Circuit circuit;
-	private final double  EPSILON=0.2;
+	private final double  EPSILON=0.1;
 	
-	public RadarClassique(Vecteur[] faisceaux, Voiture voiture, Circuit circuit) {
+	public RadarClassique(double[] faisceaux, Voiture voiture, Circuit circuit) {
 		super();
 		this.faisceaux = faisceaux;
 		this.voiture = voiture;
@@ -21,26 +21,31 @@ public class RadarClassique implements Radar {
 		double cpt=0;
 		Vecteur p=voiture.getPosition();
 		Vecteur d=voiture.getDirection();
-		d.rotation(angle);
-		while ((circuit.getTerrain(p)!= Terrain.Herbe)&&(p.getX()<circuit.getMatrix().length)&&(p.getY()<circuit.getMatrix()[0].length)) {
+		Vecteur v=new Vecteur(0, 1);
+		d=d.rotation(angle);
+		//(circuit.getTerrain(p)!=Terrain.Herbe)
+		while ((TerrainTools.isRunnable(circuit.getTerrain(p)))&&(p.getX()<circuit.getMatrix().length)&&(p.getY()<circuit.getMatrix()[0].length)) {
 			cpt++;
-			p.addition(d.multiplication(EPSILON));
+			v=d.multiplication(EPSILON);
+			p=p.addition(v);
 			}
 		return cpt;
 	}
-
 	public double[] scores() {
-		Vecteur d=voiture.getDirection();
 		double[] scores=new double[faisceaux.length];
 		for(int i=0;i<faisceaux.length;i++){
-			scores[i]=calcScore(d.angle(faisceaux[i]));
+			scores[i]=calcScore(faisceaux[i]);
 		}
 		return scores;
 	}
 
 	public double[] distancesInPixels() {
-		//je ne comprends pas ce que peut faire cette fonction
-		return null;
+		double[] score=this.scores();
+		double[] res=new double[score.length];
+		for(int i=0;i<score.length;i++) {
+			res[i]=score[i]/EPSILON;
+		}
+		return res;
 	}
 
 	public int getBestIndex() {
@@ -55,12 +60,7 @@ public class RadarClassique implements Radar {
 	}
 
 	public double[] thetas() {
-		double[] angles=new double[faisceaux.length];
-			Vecteur d=voiture.getDirection();
-			for(int i=0;i<faisceaux.length;i++){
-				angles[i]=d.angle(faisceaux[i]);
-			}
-		return angles ;
+		return faisceaux ;
 	}
 
 }

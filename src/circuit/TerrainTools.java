@@ -16,7 +16,6 @@ public class TerrainTools {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 	public static Terrain terrainFromChar(char c) throws TerrainException{
 		switch (c){
 		case '.':  return Terrain.Route;

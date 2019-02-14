@@ -30,8 +30,8 @@ public class Test {
 		double x;
 		for(int i=0;i<100;i++) {
 			x=Math.random()*(2*v1.getMaxTurn())-v1.getMaxTurn();
-			//x=(1-Math.random())*v1.getMaxTurn();(avec cette formule on a que des nombre positif c'est entre 0  et 1
-			System.out.println(x);
+			//x=(Math.random()*2)-1;//*v1.getMaxTurn();
+			//System.out.println(x);
 			liste1.add(i,new Commande(x, 0));
 			liste2.add(i,new Commande(x, 0));
 			liste3.add(i,new Commande(x, 0));
@@ -41,15 +41,15 @@ public class Test {
 			liste2.add(i,new Commande(x, 1));
 			liste3.add(i,new Commande(x, -1));
 		}
-		System.out.println(circuit.getPointDepart());
-		System.out.println(v1.getPosition());
+		//System.out.println(circuit.getPointDepart());
+		//System.out.println(v1.getPosition());
 		
 		BufferedImage im=TerrainTools.imageFromCircuit(track);
 		 for(int i=0;i<liste1.size();i++) {
 			 v1.drive(liste1.get(i));
 			 int vx=(int) v1.getPosition().x;
 			 int vy=(int) v1.getPosition() .y;
-			 im.setRGB(vx,vy,Color.BLACK.getRGB() );
+			 im.setRGB(vx,vy,Color.BLACK.getRGB());
 		 }
 		for(int i=0;i<liste2.size();i++) {
 			 v1.drive(liste2.get(i));

@@ -1,7 +1,6 @@
 package voiture;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,14 +21,15 @@ public class Simulation {
 		this.strategy = s;
 	}
 	public void play(BufferedImage im){
-		Graphics g = (Graphics) im.getGraphics();
-		g.setColor(Color.BLACK);
+
 		while(circuit.getTerrain(voiture.getPosition())==Terrain.Route){	
+			
 			voiture.drive(strategy.getCommande());
+			
 			System.out.println(voiture.getPosition());
 			 int vx=(int) voiture.getPosition().x;
-			 int vy=(int) voiture.getPosition() .y;
-			 	g.drawLine(vx,vy,vx,vy);
+			 int vy=(int) voiture.getPosition().y;
+			 im.setRGB(vx,vy,Color.BLACK.getRGB());
 		}
 		try {
             File outputfile = new File("saved.png");

@@ -12,6 +12,7 @@ public class TestSimulation {
 
 		Circuit track=CircuitFactoryFromFile.build("1_safe.trk" ) ;
 	    Voiture v=FerrariFactory.build(track);
+	    
 		BufferedImage im =TerrainTools.imageFromCircuit(track.getMatrix());
 		ArrayList<Commande> coms = new ArrayList<Commande>();
 		for(int i =0;i<50;i++)coms.add(new Commande(1,0));
@@ -21,6 +22,7 @@ public class TestSimulation {
 		Strategy str = new StrategyListeCommande(coms);
 		Simulation simu= new Simulation(track,v,str);
 		simu.play(im) ;
+		
 
 	}
 
