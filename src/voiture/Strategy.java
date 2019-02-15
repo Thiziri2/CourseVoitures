@@ -1,5 +1,7 @@
 package voiture;
 
-public interface Strategy {
+import java.io.Serializable;
+
+public interface Strategy extends Serializable {
 	public Commande getCommande(); 
 }

@@ -1,8 +1,16 @@
 package radar;
 
 import geometrie.Vecteur;
+
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import circuit.Circuit;
-import enums.Terrain;
+import circuit.TerrainTools;
 import voiture.Voiture;
 
 public class RadarClassique implements Radar {
@@ -42,9 +50,25 @@ public class RadarClassique implements Radar {
 	public double[] distancesInPixels() {
 		double[] score=this.scores();
 		double[] res=new double[score.length];
+		Vecteur p=null,d=null;
+		BufferedImage im=TerrainTools.imageFromCircuit(circuit.getMatrix());
 		for(int i=0;i<score.length;i++) {
-			res[i]=score[i]/EPSILON;
+			res[i]=score[i]*EPSILON;
+			p=voiture.getPosition();
+			d=voiture.getDirection();
+			d=d.rotation(faisceaux[i]);
+			for(int j=0;j<res[i];j++) {
+				p=p.addition(d);
+				im.setRGB((int)p.x,(int)p.y,Color.BLACK.getRGB());
+			}
 		}
+		 try {
+	            File outputfile = new File("saved.png");
+	            ImageIO.write(im, "png", outputfile);
+	         } catch (IOException e) {
+	            System.out.println("Erreur lors de la sauvegarde");
+	         }
+		
 		return res;
 	}
 
@@ -52,8 +76,9 @@ public class RadarClassique implements Radar {
 		double[] s=scores();
 		int max=0;
 		int i=0;
-			while(s[i]<s[max]){
-				max=i;
+			while(i<s.length){
+				if(s[max]<s[i]) {
+				max=i;}
 				i++;
 			}
 		return max;
@@ -62,5 +87,17 @@ public class RadarClassique implements Radar {
 	public double[] thetas() {
 		return faisceaux ;
 	}
+	
+	public void setFaisceaux(double[] faisceaux) {
+		this.faisceaux = faisceaux;
+	}
+	public Voiture getVoiture() {
+		return voiture;
+	}
+	public void setVoiture(Voiture voiture) {
+		this.voiture = voiture;
+	}
+	
+	
 
 }

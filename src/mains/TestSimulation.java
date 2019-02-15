@@ -23,6 +23,7 @@ public class TestSimulation {
 		Simulation simu= new Simulation(track,v,str);
 		simu.play(im) ;
 		
+		Simulation.saveListeCommande(coms,"liste_commandes.txt");
 
 	}
 

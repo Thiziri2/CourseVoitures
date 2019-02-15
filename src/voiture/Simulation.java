@@ -2,35 +2,45 @@ package voiture;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import circuit.Circuit;
-import enums.Terrain;
+import circuit.TerrainTools;
+//import enums.Terrain;
+import geometrie.Vecteur;
 
 public class Simulation {
 	private Circuit circuit;
 	private Voiture voiture;
 	private Strategy strategy;
+	private ArrayList<Commande> record;
 	public Simulation(Circuit c, Voiture v, Strategy s) {
 		super();
 		this.circuit = c;
 		this.voiture = v;
 		this.strategy = s;
+		this.record=new ArrayList<Commande>();
 	}
 	public void play(BufferedImage im){
-
-		while(circuit.getTerrain(voiture.getPosition())==Terrain.Route){	
+		Vecteur p =voiture.getPosition();
+		while((TerrainTools.isRunnable(circuit.getTerrain(p)))&&(p.x<circuit.getMatrix()[0].length)&&(p.y<circuit.getMatrix().length)) {
 			
 			voiture.drive(strategy.getCommande());
+			 p =voiture.getPosition();
+
+			 int vx=(int) p.x;
+			 int vy=(int) p.y;
+
+			 im.setRGB(vx,vy,Color.yellow.getRGB());
 			
-			System.out.println(voiture.getPosition());
-			 int vx=(int) voiture.getPosition().x;
-			 int vy=(int) voiture.getPosition().y;
-			 im.setRGB(vx,vy,Color.BLACK.getRGB());
 		}
+		
 		try {
             File outputfile = new File("saved.png");
             ImageIO.write(im, "png", outputfile);
@@ -43,12 +53,27 @@ public class Simulation {
 	Commande c = strategy.getCommande();
 	// application
 	voiture.drive(c);
-	// MAJ Etat
+	 //MAJ Etat
 	//state = updateState();
 	}
 	
-	/*public void Affichage(BufferedImage im){
-		Graphics g = (Graphics) im.getGraphics();
-		g.setColor(Color.BLACK);
-	}*/
+	public void addCommande(Commande e) {
+		record.add(e);
+	}
+	
+	public ArrayList<Commande> getRecord(){
+		return record;
+	}
+
+	public static  void saveListeCommande( ArrayList<Commande> liste,String filename){
+	try{
+	DataOutputStream  os =new DataOutputStream(new FileOutputStream(filename));
+	for(Commande c : liste){
+	os.writeDouble(c.getAcc());
+	os.writeDouble(c.getTurn());
+	}os.close();
+	}catch(IOException e){
+		e.printStackTrace();
+	}
+	}
 }

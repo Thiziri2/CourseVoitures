@@ -27,49 +27,59 @@ public class Test {
 		ArrayList<Commande> liste1 = new ArrayList<Commande>();
 		ArrayList<Commande> liste2 = new ArrayList<Commande>();
 		ArrayList<Commande> liste3 = new ArrayList<Commande>();
-		double x;
-		for(int i=0;i<100;i++) {
-			x=Math.random()*(2*v1.getMaxTurn())-v1.getMaxTurn();
-			//x=(Math.random()*2)-1;//*v1.getMaxTurn();
-			//System.out.println(x);
-			liste1.add(i,new Commande(x, 0));
-			liste2.add(i,new Commande(x, 0));
-			liste3.add(i,new Commande(x, 0));
+		//double x;
+		//  ** implementation des listes de commandes **
+		for(int i=0;i<1000;i++) {
+			//x=(Math.random()*2)-1;vitesse aléatoire entre -1 et 1(les 2exclues)
+
+			liste1.add(i,new Commande((Math.random()*2)-1, 0));//liste qui va tout droit
+			liste2.add(i,new Commande((Math.random()*2)-1, 0));//liste qui va à droite(les 100 premières commande vont tout droit)
+			liste3.add(i,new Commande((Math.random()*2)-1, 0));//liste qui va à gauche(les 100 premières commande vont tout droit)
 		}
-		for(int i=100;i<200;i++) {
-			x=(1-Math.random())*v1.getMaxTurn();
-			liste2.add(i,new Commande(x, 1));
-			liste3.add(i,new Commande(x, -1));
+		for(int i=1000;i<2000;i++) {
+			//x=(Math.random()*2)-1;vitesse aléatoire
+			liste2.add(i,new Commande((Math.random()*2)-1, -v1.getMaxTurn()));//turn max vers la gauche
+			liste3.add(i,new Commande((Math.random()*2)-1, v1.getMaxTurn()));//turn max vers la droite
 		}
-		//System.out.println(circuit.getPointDepart());
-		//System.out.println(v1.getPosition());
 		
-		BufferedImage im=TerrainTools.imageFromCircuit(track);
-		 for(int i=0;i<liste1.size();i++) {
-			 v1.drive(liste1.get(i));
-			 int vx=(int) v1.getPosition().x;
-			 int vy=(int) v1.getPosition() .y;
-			 im.setRGB(vx,vy,Color.BLACK.getRGB());
+		//System.out.println(circuit.getPointDepart());
+		
+		BufferedImage im=TerrainTools.imageFromCircuit(track);//on récupère l'image du circuit
+		
+		 for(int i=0;i<liste1.size();i++) {//on parcour la liste de commande liste1 et on applique le deplacement de v1
+			 
+			 v1.drive(liste1.get(i));//déplacement v1
+			 
+			 int vx=(int) v1.getPosition().x;//on récupère la position de v1
+			 int vy=(int) v1.getPosition().y;
+			 im.setRGB(vx,vy,Color.BLACK.getRGB());//on modifie la couleur du pixel associé à la position (V1.x,v1.y)
 		 }
+		 
 		for(int i=0;i<liste2.size();i++) {
-			 v1.drive(liste2.get(i));
+			
+			 v1.drive(liste2.get(i));//déplacement v1
+			 
 			 int vx=(int) v1.getPosition().x;
 			 int vy=(int) v1.getPosition() .y;
-			 im.setRGB(vx,vy,Color.BLACK.getRGB() );
+			 im.setRGB(vx,vy,Color.BLACK.getRGB() );//on modifie la couleur du pixel associé à la position (V1.x,v1.y)
 		 }
+		
 		 for(int i=0;i<liste3.size();i++) {
+			 
 			 v1.drive(liste3.get(i));
+
 			 int vx=(int) v1.getPosition().x;
 			 int vy=(int) v1.getPosition() .y;
-			 im.setRGB(vx,vy,Color.BLACK.getRGB() );
+			 im.setRGB(vx,vy,Color.BLACK.getRGB() );//on modifie la couleur du pixel associé à la position (V1.x,v1.y)
 		 }
+		 
 		 try {
 	            File outputfile = new File("saved.png");
 	            ImageIO.write(im, "png", outputfile);
 	         } catch (IOException e) {
 	            System.out.println("Erreur lors de la sauvegarde");
 	         }
-		
+		System.out.println("fait");
 		//System.out.println(liste1.get(2).getAcc());
 		
 		//System.out.println(TerrainTools.terrainToRGB(Terrain.Eau));
