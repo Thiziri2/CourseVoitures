@@ -2,6 +2,7 @@ package circuit;
 
 import java.util.ArrayList;
 
+
 import enums.Terrain;
 import geometrie.Vecteur;
 

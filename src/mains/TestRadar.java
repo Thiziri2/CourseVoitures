@@ -13,7 +13,7 @@ public class TestRadar {
 		
 		double  pi=Math.PI;
 		double [] faisceaux= {pi/3,pi/6,0,-pi/6,-pi/3,pi/4};
-		String filename = "2_safe.trk";
+		String filename = "1_safe.trk";
 		Circuit circuit=CircuitFactoryFromFile.build(filename);
 		Voiture voiture= VoitureFactory.build(circuit);
 		Radar radar=new RadarClassique(faisceaux,voiture,circuit);
@@ -22,7 +22,10 @@ public class TestRadar {
 			System.out.print(score[i]+" ~ ");//afficher sur une ligne les scores des faisceaux
 		}
 		System.out.println("\n");
-		radar.distancesInPixels();
+		double dist[]=radar.distancesInPixels();
+		for(int i=0;i<dist.length;i++) {
+			System.out.print(dist[i]+" ~ ");//afficher sur une ligne les scores des faisceaux
+		}
 		System.out.println(radar.getBestIndex());
 	
 		

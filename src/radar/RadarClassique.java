@@ -29,13 +29,13 @@ public class RadarClassique implements Radar {
 		double cpt=0;
 		Vecteur p=voiture.getPosition();
 		Vecteur d=voiture.getDirection();
-		Vecteur v=new Vecteur(0, 1);
 		d=d.rotation(angle);
-		//(circuit.getTerrain(p)!=Terrain.Herbe)
+		System.out.println(p);
+		
 		while ((TerrainTools.isRunnable(circuit.getTerrain(p)))&&(p.getX()<circuit.getMatrix().length)&&(p.getY()<circuit.getMatrix()[0].length)) {
 			cpt++;
-			v=d.multiplication(EPSILON);
-			p=p.addition(v);
+			p=p.addition(d.multiplication(EPSILON));
+			//System.out.println(p);
 			}
 		return cpt;
 	}
