@@ -17,7 +17,9 @@ public class TestRadar {
 		Circuit circuit=CircuitFactoryFromFile.build(filename);
 		Voiture voiture= VoitureFactory.build(circuit);
 		Radar radar=new RadarClassique(faisceaux,voiture,circuit);
+		
 		double [] score=radar.scores();
+		
 		for(int i=0;i<score.length;i++) {
 			System.out.print(score[i]+" ~ ");//afficher sur une ligne les scores des faisceaux
 		}
