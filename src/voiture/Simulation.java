@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import strategy.Strategy;
 import circuit.Circuit;
 import circuit.TerrainTools;
 //import enums.Terrain;

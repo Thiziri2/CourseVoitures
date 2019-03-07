@@ -1,7 +1,9 @@
-package voiture;
+package strategy;
 
 
 import java.util.ArrayList;
+
+import voiture.Commande;
 
 public class StrategyListeCommande implements Strategy {
 	/**

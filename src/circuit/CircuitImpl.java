@@ -2,6 +2,7 @@ package circuit;
 
 import java.util.ArrayList;
 
+
 import enums.Terrain;
 import geometrie.Vecteur;
 
@@ -51,12 +52,15 @@ public class CircuitImpl implements Circuit{
 		return matrice.length;
 	}
 	public ArrayList<Vecteur> getArrivees() {
-		//je ne sais pas que doit faire cette fonction
-		ArrayList<Vecteur> lv=new ArrayList<Vecteur>();
-		//lv.add(ptDepart);
-		//lv.add(sensDepart);
-		lv.add(sensArrivee);
-		return lv;
+		  ArrayList<Vecteur> end=new ArrayList<Vecteur>();
+		  for(int i=0;i<matrice.length;i++) {
+			  for(int j=0;j<matrice[0].length;j++) {
+				  if(matrice[i][j]==Terrain.EndLine) {
+					  end.add(new Vecteur(i,j));
+				  }
+			  }
+		  }
+		  return end;
 	}
 	public double getDist(int i, int j) {
 		Vecteur v=new Vecteur(i,j);

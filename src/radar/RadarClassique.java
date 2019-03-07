@@ -29,13 +29,12 @@ public class RadarClassique implements Radar {
 		double cpt=0;
 		Vecteur p=voiture.getPosition();
 		Vecteur d=voiture.getDirection();
-		Vecteur v=new Vecteur(0, 1);
 		d=d.rotation(angle);
-		//(circuit.getTerrain(p)!=Terrain.Herbe)
+		
 		while ((TerrainTools.isRunnable(circuit.getTerrain(p)))&&(p.getX()<circuit.getMatrix().length)&&(p.getY()<circuit.getMatrix()[0].length)) {
 			cpt++;
-			v=d.multiplication(EPSILON);
-			p=p.addition(v);
+			p=p.addition(d.multiplication(EPSILON));
+			//System.out.println(p);
 			}
 		return cpt;
 	}
@@ -52,11 +51,13 @@ public class RadarClassique implements Radar {
 		double[] res=new double[score.length];
 		Vecteur p=null,d=null;
 		BufferedImage im=TerrainTools.imageFromCircuit(circuit.getMatrix());
+		
 		for(int i=0;i<score.length;i++) {
 			res[i]=score[i]*EPSILON;
 			p=voiture.getPosition();
 			d=voiture.getDirection();
 			d=d.rotation(faisceaux[i]);
+			
 			for(int j=0;j<res[i];j++) {
 				p=p.addition(d);
 				im.setRGB((int)p.x,(int)p.y,Color.BLACK.getRGB());

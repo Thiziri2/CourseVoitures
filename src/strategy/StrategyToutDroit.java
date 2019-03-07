@@ -1,4 +1,6 @@
-package voiture;
+package strategy;
+
+import voiture.Commande;
 
 public class StrategyToutDroit implements Strategy {
 

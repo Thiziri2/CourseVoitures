@@ -1,4 +1,4 @@
-package voiture;
+package strategy;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import voiture.Commande;
 
 public class StrategyRecord implements Strategy{
     /**
@@ -50,7 +52,6 @@ public class StrategyRecord implements Strategy{
 
     }
 
-	@Override
 	public Commande getCommande() {
 		// TODO Auto-generated method stub
 		return null;

@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import circuit.*;
+import strategy.Strategy;
+import strategy.StrategyListeCommande;
 import voiture.*;
 
 public class TestSimulation {

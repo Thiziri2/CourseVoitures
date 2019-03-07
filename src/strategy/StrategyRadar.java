@@ -1,8 +1,8 @@
-package radar;
+package strategy;
 
 import circuit.Circuit;
+import radar.Radar;
 import voiture.Commande;
-import voiture.Strategy;
 import voiture.Voiture;
 
 public class StrategyRadar implements Strategy{
@@ -24,7 +24,7 @@ public class StrategyRadar implements Strategy{
 		
 	}
 
-	@Override
+	
 	public Commande getCommande() {
 		/*for(int i=0;i<faisceaux.length;i++) {
 			if(i==radar.getBestIndex()) {
