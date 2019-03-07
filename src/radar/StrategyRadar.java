@@ -31,13 +31,17 @@ public class StrategyRadar implements Strategy{
 				return new Commande(,faisceaux[i]);
 			}
 		}*/
-		int index=radar.getBestIndex();
-		if(Math.abs(faisceaux[index])<voiture.getMaxTurn()) {
+		int index=radar.getBestIndex();//System.out.println(index);
+		
+		if((faisceaux[index]<voiture.getMaxTurn()) ) {//&& (faisceaux[index]>voiture.getMaxTurn())) {
 			return new Commande(1,faisceaux[index]);
 		}
 		else {
 			return new Commande(-1,0);
 		}
+	}
+	public void SetRadar(Radar rad) {
+		radar=rad;
 	}
 			
 

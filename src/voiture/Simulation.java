@@ -14,12 +14,16 @@ import circuit.Circuit;
 import circuit.TerrainTools;
 //import enums.Terrain;
 import geometrie.Vecteur;
+import observeurs.UpdateEventListener;
+import observeurs.UpdateEventSender;
 
-public class Simulation {
+public class Simulation implements UpdateEventSender {
 	private Circuit circuit;
 	private Voiture voiture;
 	private Strategy strategy;
 	private ArrayList<Commande> record;
+	private ArrayList<UpdateEventListener> listeners;
+	
 	public Simulation(Circuit c, Voiture v, Strategy s) {
 		super();
 		this.circuit = c;
@@ -50,11 +54,11 @@ public class Simulation {
 		
 	}
 	public void playOneShot() throws VoitureException{
-	Commande c = strategy.getCommande();
-	// application
-	voiture.drive(c);
-	 //MAJ Etat
-	//state = updateState();
+		Commande c = strategy.getCommande();
+		// application
+		voiture.drive(c);
+		//MAJ Etat
+		//state = updateState();
 	}
 	
 	public void addCommande(Commande e) {
@@ -66,14 +70,24 @@ public class Simulation {
 	}
 
 	public static  void saveListeCommande( ArrayList<Commande> liste,String filename){
-	try{
-	DataOutputStream  os =new DataOutputStream(new FileOutputStream(filename));
-	for(Commande c : liste){
-	os.writeDouble(c.getAcc());
-	os.writeDouble(c.getTurn());
-	}os.close();
-	}catch(IOException e){
-		e.printStackTrace();
+		try{
+				DataOutputStream  os =new DataOutputStream(new FileOutputStream(filename));
+				for(Commande c : liste){
+					os.writeDouble(c.getAcc());
+					os.writeDouble(c.getTurn());
+				}os.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
+
+	@Override
+	public void add(UpdateEventListener listener) {
+		listeners.add(listener);
+	}
+	@Override
+	public void update() {
+		for(UpdateEventListener listener:listeners)
+			listener.manageUpdate();		
 	}
 }

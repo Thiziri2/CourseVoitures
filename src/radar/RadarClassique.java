@@ -98,6 +98,9 @@ public class RadarClassique implements Radar {
 		this.voiture = voiture;
 	}
 	
+	public void SetVoiture(Voiture voiture) {
+		this.voiture=voiture;
+	}
 	
 
 }

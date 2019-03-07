@@ -5,7 +5,7 @@ import geometrie.Vecteur;
 public interface Voiture {
 	 // pour le pilotage
     public void drive(Commande c);
-    public double getMaxTurn(); // cf juste après
+    public double getMaxTurn(); // cf juste aprï¿½s
 
     // pour l'observation
     public double getVitesse();
@@ -13,4 +13,5 @@ public interface Voiture {
 	public Vecteur getPosition();
     public Vecteur getDirection();
     public double getBraquage();
+	public String getDerapage();
 }

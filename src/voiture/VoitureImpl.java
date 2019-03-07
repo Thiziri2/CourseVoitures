@@ -108,5 +108,9 @@ public class VoitureImpl implements Voiture {
 	public double getBraquage() {
 		return braquage;
 	}
+	
+	public String getDerapage() {
+		return null;  //~~~~~~~~
+	}
 
 }
