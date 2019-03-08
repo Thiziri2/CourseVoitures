@@ -31,7 +31,7 @@ public class VoitureObserver implements Observeur, ObserveurSWING{
 
         return new Color((int)(voiture.getVitesse()*255), 0, (int) (voiture.getVitesse()*255));
     }
-    @Override
+    
     public void print(Graphics g){
             // Attention a l'inversion eventuelle des coordonnees
             g.setColor(color);
@@ -53,6 +53,12 @@ public class VoitureObserver implements Observeur, ObserveurSWING{
 	@Override
 	public void print(BufferedImage im) {
         im.setRGB(getX(), getY(), getColor().getRGB());		
+	}
+
+	@Override
+	public void print(com.sun.prism.Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

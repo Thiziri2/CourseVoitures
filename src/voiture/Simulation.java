@@ -32,7 +32,8 @@ public class Simulation implements UpdateEventSender {
 		this.strategy = s;
 		this.record=new ArrayList<Commande>();
 	}
-	public void play(BufferedImage im){
+	public void play(){
+		BufferedImage im=TerrainTools.imageFromCircuit(circuit.getMatrix());
 		Vecteur p =voiture.getPosition();
 		while((TerrainTools.isRunnable(circuit.getTerrain(p)))&&(p.x<circuit.getMatrix()[0].length)&&(p.y<circuit.getMatrix().length)) {
 			

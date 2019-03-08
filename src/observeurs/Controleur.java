@@ -16,7 +16,6 @@ public class Controleur implements UpdateEventListener{
 	}
 
 	public void add(Observeur vobs) {
-		//liste.add(vobs);
 		liste.add(vobs);
 	}
 
@@ -25,4 +24,6 @@ public class Controleur implements UpdateEventListener{
 		for(Observeur o:liste)
 		o.print(image);		
 	}
+
+
 }

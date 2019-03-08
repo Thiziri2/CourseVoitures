@@ -12,7 +12,7 @@ public class IHMSwing extends JPanel implements UpdateEventListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	Object list;
 	@Override
 	public void manageUpdate() {
         repaint(); // ordre de mise à jour  
@@ -26,7 +26,8 @@ public class IHMSwing extends JPanel implements UpdateEventListener{
     public void paint(Graphics g){
         super.paint((java.awt.Graphics) g);
 
-        for(ObserveurSWING o:list)
+		
+		for(ObserveurSWING o:list)
             o.print(g);
     }
 }
