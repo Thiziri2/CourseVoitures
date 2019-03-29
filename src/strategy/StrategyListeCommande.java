@@ -19,11 +19,11 @@ public class StrategyListeCommande implements Strategy {
 	index=0;
 	}
 	public Commande getCommande ( ) {
-		while (index<liste.size()){
-			index++;
-			return liste.get(index);
-		}
-		return null;
+		if(index>=liste.size())
+			return null;
+		Commande c = liste.get(index);
+		index++; 
+		return c;
 	}
 	
 

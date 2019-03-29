@@ -42,8 +42,6 @@ public class Test {
 			liste3.add(i,new Commande((Math.random()*2)-1, v1.getMaxTurn()));//turn max vers la droite
 		}
 		
-		//System.out.println(circuit.getPointDepart());
-		
 		BufferedImage im=TerrainTools.imageFromCircuit(track);//on récupère l'image du circuit
 		
 		 for(int i=0;i<liste1.size();i++) {//on parcour la liste de commande liste1 et on applique le deplacement de v1
@@ -72,13 +70,8 @@ public class Test {
 			 int vy=(int) v1.getPosition() .y;
 			 im.setRGB(vx,vy,Color.BLACK.getRGB() );//on modifie la couleur du pixel associé à la position (V1.x,v1.y)
 		 }
-		 
-		 try {
-	            File outputfile = new File("saved.png");
-	            ImageIO.write(im, "png", outputfile);
-	         } catch (IOException e) {
-	            System.out.println("Erreur lors de la sauvegarde");
-	         }
+		
+		TerrainTools.saveIm(im, "circuit");
 		System.out.println("fait");
 		//System.out.println(liste1.get(2).getAcc());
 		

@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import strategy.Strategy;
 import circuit.Circuit;
 import circuit.TerrainTools;
+import enums.Terrain;
 //import enums.Terrain;
 import geometrie.Vecteur;
 import observeurs.UpdateEventListener;
@@ -32,6 +33,36 @@ public class Simulation implements UpdateEventSender {
 		this.strategy = s;
 		this.record=new ArrayList<Commande>();
 	}
+	/*
+	public void play(){
+			BufferedImage imCir = TerrainTools.imageFromCircuit(circuit);
+			//On ne manipule plus d'image dans la simulation
+			Commande com;
+			boolean endgame = false;
+			int pas=0;
+
+			System.out.println("Je simule");
+			do{
+				com = strategy.getCommande();
+				voiture.drive(com);
+				record.add(com);
+				//On donne à l'observer voiture les données pour qu'il change imprime la couleur de la position de la voiture
+				update();
+
+				//En mode image
+				imCir.setRGB((int) voiture.getPosition().y, (int) voiture.getPosition().x, Color.YELLOW.getRGB());
+
+				if(!TerrainTools.isRunnable(circuit.getTerrain(voiture.getPosition()))){//Si le terrain n'est pas Runnable
+					endgame = true;
+					System.out.println("perdu !!! Nombre de pas : "+(pas++));
+				}
+				if(circuit.getTerrain(voiture.getPosition()) == Terrain.EndLine){
+					endgame = true;
+					System.out.println("Gagné ! Game over ! Congrats! Nombre de pas : "+(pas++));
+				}
+				pas++;
+			}while(com != null && !endgame);
+	}*/
 	public void play(){
 		BufferedImage im=TerrainTools.imageFromCircuit(circuit.getMatrix());
 		Vecteur p =voiture.getPosition();
@@ -47,12 +78,7 @@ public class Simulation implements UpdateEventSender {
 			
 		}
 		
-		try {
-            File outputfile = new File("saved.png");
-            ImageIO.write(im, "png", outputfile);
-         } catch (IOException e) {
-            System.out.println("Erreur lors de la sauvegarde");
-         }
+		TerrainTools.saveIm(im, "simulation");
 		
 	}
 	public void playOneShot() throws VoitureException{
@@ -83,11 +109,11 @@ public class Simulation implements UpdateEventSender {
 		}
 	}
 
-	@Override
+	
 	public void add(UpdateEventListener listener) {
 		listeners.add(listener);
 	}
-	@Override
+
 	public void update() {
 		for(UpdateEventListener listener:listeners)
 			listener.manageUpdate();		
