@@ -102,6 +102,15 @@ public class Vecteur {
 	public Vecteur rotation(double theta) {
 		return new Vecteur(this.x*Math.cos(theta)-this.y*Math.sin(theta),this.x*Math.sin(theta)+this.y*Math.cos(theta));
 	}
+	public double dist(Vecteur v){
+		return Math.sqrt(Math.pow((this.x-v.x), 2) + Math.pow((this.y-v.y), 2));
+	}
+	public boolean estAutour(Vecteur cible, double rayon){
+		//Si le Vecteur courant (this) est à une distance <= au rayon
+		if(this.dist(cible)<=rayon)
+			return true;
+		return false;
+	}
 	
 	/* 	public void additionVoid(Vecteur v1) {
 		this.x += v1.x;

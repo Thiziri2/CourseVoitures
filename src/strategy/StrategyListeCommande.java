@@ -3,27 +3,29 @@ package strategy;
 
 import java.util.ArrayList;
 
+import circuit.Circuit;
 import voiture.Commande;
+import voiture.Voiture;
 
 public class StrategyListeCommande implements Strategy {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private ArrayList<Commande>liste;
-	private int index ;
+
+	private ArrayList<Commande>liste=new ArrayList<Commande>();
+	private int index;
 	
 	public StrategyListeCommande(ArrayList<Commande>liste) {
-	this.liste=new ArrayList<Commande>();
-	this.liste=liste ;
-	index=0;
+		this.liste=liste ;
+		index=0;
 	}
 	public Commande getCommande ( ) {
 		if(index>=liste.size())
 			return null;
 		Commande c = liste.get(index);
-		index++; 
+		index++;
 		return c;
+		
+	}
+	public void init(Voiture v, Circuit cir) {
+		v.drive(getCommande());
 	}
 	
 

@@ -6,45 +6,34 @@ import voiture.Commande;
 import voiture.Voiture;
 
 public class StrategyRadar implements Strategy{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	Radar radar;
-	Circuit circuit;
-	Voiture voiture;
-	double[] faisceaux;
-	
-	public  StrategyRadar(Radar radar,double[] faisceaux,Circuit circuit,Voiture voiture) {
-		super();
-		this.radar=radar;
-		this.faisceaux=faisceaux;
-		this.circuit=circuit;
-		this.voiture=voiture;
-		
+	private Radar radar;
+	private Voiture v;
+
+	public StrategyRadar(Voiture v, Radar r){
+		this.radar = r; this.v = v;
 	}
 
-	
 	public Commande getCommande() {
-		/*for(int i=0;i<faisceaux.length;i++) {
-			if(i==radar.getBestIndex()) {
-				return new Commande(,faisceaux[i]);
-			}
-		}*/
-		int index=radar.getBestIndex();//System.out.println(index);
-		
-		if((faisceaux[index]<voiture.getMaxTurn()) ) {//&& (faisceaux[index]>voiture.getMaxTurn())) {
-			return new Commande(1,faisceaux[index]);
-		}
-		else {
-			return new Commande(-1,0);
-		}
-	}
-	public void SetRadar(Radar rad) {
-		radar=rad;
-	}
-			
+		//Il faut savoir s'il faut tourner à gauche ou à droite, acc ou freiner
+		//L'angle doit être entre -1 et 1 donc il faut diviser par le braquege
+		int index = radar.getBestIndex();// 1 est le pas
+		double [] angles = radar.thetas();
+		double angle = angles[index] * v.getBraquage();
 
+		Commande result;
+//			if(Math.abs(angle)>0.5 && v.getVitesse()>0.5)
+//				result = new Commande(-0.9, angle);
+		if(v.getVitesse() < 0.2)
+			result = new Commande(0.05, angle);
+		else
+			result = new Commande(-1, angle);
+
+		return result;
 	}
+	public Radar getRadar(){
+		return radar;
+	}
+}
+
 
 

@@ -1,5 +1,6 @@
 package mains;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import circuit.Circuit;
@@ -15,7 +16,7 @@ import voiture.Voiture;
 import voiture.VoitureFactory;
 
 public class MVC_test {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 CircuitFactoryFromFile cfac=new CircuitFactoryFromFile("1_safe.trk");
 Circuit track=cfac.build("1_safe.trk");
 VoitureFactory vfac= new FerrariFactory();

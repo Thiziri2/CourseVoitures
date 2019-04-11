@@ -13,6 +13,8 @@ public interface Circuit {
         public Vecteur getDirectionArrivee();
         public int getWidth();
         public int getHeight();
+        public void setTerrain(int x, int y, Terrain t);
+        public void filtre(Terrain [][] matrice);
         public ArrayList<Vecteur> getArrivees();
         public double getDist(int i, int j);
         public Terrain[][] getMatrix();

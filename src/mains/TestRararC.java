@@ -1,14 +1,19 @@
-/*package mains;
+package mains;
 
 import java.io.FileNotFoundException;
 
-import circuit.*;
-import radar.*;
+import radar.Radar;
+import radar.RadarClassique;
+import strategy.Strategy;
+import strategy.StrategyRadar;
 import voiture.Simulation;
-import strategy.*;
-import voiture.*;
+import voiture.Voiture;
+import voiture.VoitureFactory;
+import circuit.Circuit;
+import circuit.CircuitFactoryFromFile;
 
-public class TestRadar {
+
+public class TestRararC {
 	public static void main(String[] args) throws FileNotFoundException{
 		String filename = "1_safe";
 		Circuit cir = CircuitFactoryFromFile.build(filename+".trk");
@@ -28,5 +33,4 @@ public class TestRadar {
 		sim.saveIm(filename);
 		System.out.println("DONE");
 	}
-}*/
-
+}
