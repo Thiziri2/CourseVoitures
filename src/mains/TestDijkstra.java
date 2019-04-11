@@ -12,7 +12,7 @@ public class TestDijkstra {
 	public static void main(String [] args) throws FileNotFoundException{
 		Circuit cir = CircuitFactoryFromFile.build("labymod.trk");
 		Dijkstra dij = new Dijkstra(cir);
-		
+		System.out.println("Yo");
 		dij.algo();
 		
 		BufferedImage im = new BufferedImage(cir.getWidth(), cir.getHeight(), BufferedImage.TYPE_INT_ARGB);

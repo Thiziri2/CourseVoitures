@@ -20,6 +20,7 @@ import circuit.*;
 import enums.Terrain;
 import radar.Radar;
 import radar.RadarClassique;
+import radar.RadarDijkstra;
 import strategy.*;
 import voiture.*;
 
@@ -172,8 +173,7 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 			j=+0.25;
 		}
 		this.radar = new RadarClassique(voiture, cir, faisceau);
-		//this.radar = new RadarDijk(cir, voiture, faisceau);
-//	   this.radar = new RadarClassique(1, voiture, cir, faisceau);
+		//this.radar = new RadarDijkstra(cir, voiture, faisceau);
 	}
 	public void setStrat(Strategy strat) {
 		this.strat = strat;

@@ -2,9 +2,11 @@ package mains;
 
 import java.io.FileNotFoundException;
 
+
 import observeurs.Controleur;
 import observeurs.VoitureObserver;
 import radar.Radar;
+import radar.RadarClassique;
 import radar.RadarDijkstra;
 import strategy.*;
 import voiture.*;
@@ -19,7 +21,7 @@ public class TestObserverContr {
 		Controleur ctr = new Controleur(cir);
 		ctr.add(vObs);
 		double faisceau[] = {-Math.PI/12, -Math.PI/6, -Math.PI/3, 0, Math.PI/3, Math.PI/6, Math.PI/12};
-		Radar radar = new RadarDijkstra(cir, v, faisceau);
+		Radar radar = new RadarClassique(v,cir, faisceau);
 		Strategy strat = new StrategyRadar(v, radar);
 		Simulation sim = new Simulation(cir,v, strat);
 		sim.add(ctr);
