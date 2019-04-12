@@ -32,9 +32,8 @@ public class TestMethodes {
           for(int i=0; i<50; i++) coms.add(new Commande(1,-0.05)); // accel a fond + gauche
           
           for(Commande c:coms){
-                  v.drive(c);
-                  System.out.println("position : "+ v.getPosition());
-                  im.setRGB((int) v.getPosition().getX(), (int) v.getPosition().getY(),(int)Color.BLUE.getRed());
+        	  im.setRGB( (int) v.getPosition().getY(),(int) v.getPosition().getX(),(int)Color.BLACK.getRed());
+              v.drive(c);
           }
 
           im.setRGB(0,0, (int)Color.BLACK.getRed());

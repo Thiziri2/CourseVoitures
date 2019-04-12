@@ -3,25 +3,25 @@ package observeurs;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import circuit.*;
+import circuit.Circuit;
+import circuit.TerrainTools;
 
 public class Controleur implements UpdateEventListener{
-	private ArrayList<ObserveurImage> observeurs;
-	private BufferedImage imCir;
-	
-	public Controleur(Circuit cir){
-		observeurs = new ArrayList<ObserveurImage>();
-		//On construit l'image associee au circuit
-		imCir = TerrainTools.imageFromCircuit(cir);
+	ArrayList<Observeur> liste;
+	BufferedImage image;
+
+	public Controleur(Circuit c) {
+		liste = new ArrayList<Observeur>();
+		image=TerrainTools.imageFromCircuit(c.getMatrix());
 	}
+
+	public void add(Observeur vobs) {
+		liste.add(vobs);
+	}
+
+	@Override
 	public void manageUpdate() {
-		for(ObserveurImage o: observeurs)
-			o.print(imCir);
-	} 
-	public void add(ObserveurImage o){
-		observeurs.add(o);
-	}
-	public BufferedImage getImage(){
-		return imCir;
+		for(Observeur o:liste)
+		o.print(image);		
 	}
 }

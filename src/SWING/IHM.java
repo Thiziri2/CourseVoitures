@@ -1,9 +1,11 @@
-package observeurs;
+package SWING;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,12 +17,12 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+
+import Dijkstra.RadarDijk;
+import observeurs.*;
 import geometrie.*;
 import circuit.*;
-import enums.Terrain;
-import radar.Radar;
-import radar.RadarClassique;
-import radar.RadarDijkstra;
+import radar.*;
 import strategy.*;
 import voiture.*;
 
@@ -107,7 +109,7 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 		menu();
 		this.setTitle(title);
 		this.setSize(width, height);
-		this.setLocationRelativeTo(null);//Le place au milieu de l'écran
+		this.setLocationRelativeTo(null);//Le place au milieu de l'Ã©cran
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
@@ -126,7 +128,7 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 		this.voiture = VoitureFactory.build(cir);//Pour replacer la voiture dans le nouveau circuit
 		cObs = new CircuitObserver(cir);
 		try {
-			vObs = new VoitureObserver(voiture, "voiture.png");
+			vObs = new VoitureObserver(voiture);//, "voiture.png");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -135,7 +137,7 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 		rObs = new RadarObserver(radar, voiture, cir);
 		Controleur ctr = new Controleur(cir);
 
-		//On enleve l'ihmSwing précédent
+		//On enleve l'ihmSwing prÃ©cÃ©dent
 		if(ihmSwing != null)
 			this.remove(this.ihmSwing);
 
@@ -148,7 +150,7 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 			ctr.add(vObs);
 		}
 		this.setStrat(new StrategyRadar(voiture, radar));
-		this.sim = new Simulation( cir,voiture, strat, controleurs);
+		this.sim = new Simulation(cir, voiture, strat, controleurs);
 
 		if(this.withImage)
 			setOnglet();
@@ -172,8 +174,8 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 			faisceau[i-1+(faisceau.length/2)] = -Math.PI/(i+j); //On evite diviser par 0
 			j=+0.25;
 		}
-		this.radar = new RadarClassique(voiture, cir, faisceau);
-		//this.radar = new RadarDijkstra(cir, voiture, faisceau);
+		this.radar = new RadarClassique(cir, voiture, faisceau);
+//		this.radar = new RadarClassique(1, voiture, cir, faisceau);
 	}
 	public void setStrat(Strategy strat) {
 		this.strat = strat;
@@ -181,7 +183,7 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 	private void menu(){
 		//Barre de menu
 		this.menuBar = new JMenuBar();
-		//Les différents menu
+		//Les diffÃ©rents menu
 		mCircuit = new JMenu("mCircuit");
 		track1 = new JMenu("track1");
 		track2 = new JMenu("track2");
@@ -194,7 +196,7 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 		putPoints = new JButton("putPoints");
 		withOrNoImage = new JButton("No Image");
 		saveCommands = new JButton("Save Commands");
-		//Action à faire
+		//Action Ã  faire
 		play.addActionListener(this);
 		putGrass.addActionListener(this);
 		putPoints.addActionListener(this);
@@ -226,15 +228,15 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 
 		stratRadar = new JRadioButtonMenuItem("Strategy Radar");
 		stratPointParPoint = new JRadioButtonMenuItem("Strategy Point Par Point");
-		//présélection
+		//prÃ©sÃ©lection
 		listTrack1.get(0).setSelected(true);
 		stratRadar.setSelected(true);
 
-		//Action à faire
+		//Action Ã  faire
 		stratRadar.addActionListener(this);
 		stratPointParPoint.addActionListener(this);
 
-		//ajouts des items dans les différents menus
+		//ajouts des items dans les diffÃ©rents menus
 		for(JRadioButtonMenuItem trackButton : listTrack1)
 			track1.add(trackButton);
 		for(JRadioButtonMenuItem trackButton : listTrack2)
@@ -250,7 +252,7 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 		mStrategy.add(stratRadar);
 		mStrategy.add(stratPointParPoint);
 
-		//ajouts des différents menus dans la menuBar
+		//ajouts des diffÃ©rents menus dans la menuBar
 		menuBar.add(mCircuit);
 		menuBar.add(mStrategy);
 		this.setJMenuBar(menuBar);
@@ -305,16 +307,16 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 	private void putGrass(){
 		/*
 		 * On modifie le circuit en ajoutant de l'herbe dans certain endroit.
-		 * De ce fait le nouveau circuit devra être sauvegarder dans l'ihm mais aussi dans la simulation.
+		 * De ce fait le nouveau circuit devra Ãªtre sauvegarder dans l'ihm mais aussi dans la simulation.
 		 */
 		System.out.println("On ajoute de l'herbe");
 
-		//Le bouton de sauvegarde pour bien réactualiser le circuit avec les nouvelles herbes
+		//Le bouton de sauvegarde pour bien rÃ©actualiser le circuit avec les nouvelles herbes
 		save = new JButton("Sauvegarder");
 		save.addActionListener(this);
 
 		ajout = true;
-		this.img = TerrainTools.imageFromCircuit(sim.getCircuit());
+		this.img = TerrainTools.imageFromCircuit(sim.getCircuit().getMatrix());
 		this.labelEdit = new JLabel(new ImageIcon(this.img));
 		//Controleur AddGrass
 		this.labelEdit.addMouseListener(this);
@@ -328,7 +330,7 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 		if(this.onglet != null)
 			this.remove(this.onglet);
 		onglet = new JTabbedPane();
-		//On ajoute la page à l'onglet
+		//On ajoute la page Ã  l'onglet
 		onglet.add("Simulaion", this.panSimulation);
 		onglet.add("Edition : Ajout d'herbe", panelEdit);
 		this.add(onglet);
@@ -336,15 +338,15 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 	}
 	private void makePoints(){
 		/*
-		 * Meme fonctionnement que putGrass() sauf qu'on l'applique à des points.
+		 * Meme fonctionnement que putGrass() sauf qu'on l'applique Ã  des points.
 		 */
 		System.out.println("Edition point par point");
-		//Le bouton de sauvegarde pour bien réactualiser le circuit avec les nouvelles herbes
+		//Le bouton de sauvegarde pour bien rÃ©actualiser le circuit avec les nouvelles herbes
 		save = new JButton("Sauvegarder");
 		save.addActionListener(this);
 
 		makePoints = true;
-		this.img = TerrainTools.imageFromCircuit(sim.getCircuit());
+		this.img = TerrainTools.imageFromCircuit(sim.getCircuit().getMatrix());
 		this.labelEdit = new JLabel(new ImageIcon(this.img));
 		//Controleur_Image
 		this.labelEdit.addMouseListener(this);
@@ -358,14 +360,14 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 		if(this.onglet != null)
 			this.remove(this.onglet);
 		onglet = new JTabbedPane();
-		//On ajoute la page à l'onglet
+		//On ajoute la page Ã  l'onglet
 		onglet.add("Simulaion", this.panSimulation);
 		onglet.add("Edition : Point par Point", panelEdit);
 		this.add(onglet);
 		manageUpdate();
 	}
 	public void saveCommandes(){
-		StrategyTools.saveListeCommande(sim.getRecord(), "Commands_saved/"+namefile+".txt");
+		FileSave.saveListeCommande(sim.getRecord(), "Commands_saved/"+namefile+".txt");
 	}
 	public void manageUpdate() {
         this.repaint();
@@ -426,7 +428,7 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 			setCir(this.cir);
 			ajout = false;
 			makePoints = false;
-			System.out.println("Réussi !");
+			System.out.println("RÃ©ussi !");
 		}
 		else if(e.getActionCommand().equals("No Image")){
 			System.out.println("No Image");
@@ -468,7 +470,7 @@ public class IHM extends JFrame implements ActionListener, MouseListener {//Mous
 			int x=e.getX(); int y=e.getY();
 
 			//Si le click est dans la matrice image
-			if(img!=null && (x<img.getWidth() && y<img.getHeight())){ //Vérifier que x représente la largeur ou hauteur de même que pour y
+			if(img!=null && (x<img.getWidth() && y<img.getHeight())){ //VÃ©rifier que x reprÃ©sente la largeur ou hauteur de mÃªme que pour y
 				System.out.println("{"+x+","+y+"}");
 				Graphics2D g = (Graphics2D) img.getGraphics();
 				g.setFont(new Font("time", 1, 18));

@@ -2,24 +2,22 @@ package mains;
 
 import java.io.FileNotFoundException;
 
-import radar.Radar;
-import radar.RadarClassique;
+import Dijkstra.RadarDijk;
+import circuit.*;
+import radar.*;
 import strategy.Strategy;
 import strategy.StrategyRadar;
 import voiture.Simulation;
 import voiture.Voiture;
 import voiture.VoitureFactory;
-import circuit.Circuit;
-import circuit.CircuitFactoryFromFile;
 
-
-public class TestRararC {
+public class test_obs {
 	public static void main(String[] args) throws FileNotFoundException{
 		String filename = "1_safe";
 		Circuit cir = CircuitFactoryFromFile.build(filename+".trk");
 		Voiture voiture = VoitureFactory.build(cir);
 		double faisceau [] = {-Math.PI/12, -Math.PI/3, -Math.PI/6, 0, Math.PI/6, Math.PI/3, Math.PI/12};
-		Radar radar = new RadarClassique(voiture, cir, faisceau);
+		Radar radar = new RadarDijk(cir, voiture, faisceau);
 		double [] tab=radar.scores();
 		for(int i=0;i<tab.length;i++) {
 			System.out.println(tab[i]);

@@ -1,4 +1,4 @@
-package enums;
+package circuit;
 
 import java.awt.Color;
 

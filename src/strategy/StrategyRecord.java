@@ -1,19 +1,24 @@
 package strategy;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 import java.util.ArrayList;
+
 import voiture.Commande;
 
 public class StrategyRecord implements Strategy{
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private Strategy strat;
+	private ArrayList<Commande> listecommande = new ArrayList<>();
+	
+	public StrategyRecord(Strategy s){
+		strat = s;
+	}
+	public Commande getCommande() {
+		Commande com = strat.getCommande();
+		listecommande.add(com);
+		return com;
+	}
+}
+/*public class StrategyRecord implements Strategy{
 	Strategy strat;
     
     public static void saveListeCommande(ArrayList<Commande> liste, String filename){
@@ -52,7 +57,9 @@ public class StrategyRecord implements Strategy{
     }
 
 	public Commande getCommande() {
-		Commande com = strat.getCommande();
-		return com;
+		// TODO Auto-generated method stub
+		return null;
 	}
-}
+
+
+}*/

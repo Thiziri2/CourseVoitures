@@ -1,5 +1,4 @@
-package observeurs;
-
+package SWING;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,9 +8,7 @@ import java.io.IOException;
 
 import javax.swing.JPanel;
 
-import circuit.Circuit;
-import circuit.CircuitFactoryFromFile;
-import circuit.TerrainTools;
+import circuit.*;
 
 public class Panneau extends JPanel { 
 	Circuit cir;
@@ -19,7 +16,7 @@ public class Panneau extends JPanel {
 	public Panneau() throws FileNotFoundException{
 		super();
 		cir = CircuitFactoryFromFile.build("1_safe.trk");
-		img = TerrainTools.imageFromCircuit(cir);
+		img = TerrainTools.imageFromCircuit(cir.getMatrix());
 	}
 	public void paintComponent(Graphics g){
 		g.drawImage(img, 0, 0, this);

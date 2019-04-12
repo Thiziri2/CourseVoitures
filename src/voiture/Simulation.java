@@ -3,17 +3,16 @@ package voiture;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.DataOutputStream;
-
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+import javax.imageio.ImageIO;
 
 import strategy.Strategy;
 import circuit.*;
-import enums.Terrain;
-
+import geometrie.*;
 import observeurs.*;
 
 public class Simulation implements UpdateEventSender {
@@ -33,6 +32,7 @@ public class Simulation implements UpdateEventSender {
 		img=TerrainTools.imageFromCircuit(circuit.getMatrix());
 	}
 
+
 	public Simulation(Circuit cir, Voiture v, Strategy strat) {
 		this( cir,v, strat, new ArrayList<UpdateEventListener>());
 	}
@@ -41,25 +41,24 @@ public class Simulation implements UpdateEventSender {
 		boolean endgame = false;
 		int pas=0;
 		System.out.println("je simule ...");
-		
 		com = strategy.getCommande();
-		System.out.println("je simule encore...");
+		
 		do{
 			voiture.drive(com);
 			record.add(com);
-			//On donne à l'observer voiture les données pour qu'il change imprime la couleur de la position de la voiture
+			//On donne Ã  l'observer voiture les donnÃ©es pour qu'il change imprime la couleur de la position de la voiture
 			update();
 
 			//En mode image
-			img.setRGB((int) voiture.getPosition().x, (int) voiture.getPosition().y, Color.yellow.getRed());
-			//img.setRGB((int) voiture.getPosition().getX(), (int) voiture.getPosition().getY(),(int)Color.BLUE.getRed());
+			img.setRGB((int) voiture.getPosition().y, (int) voiture.getPosition().x, Color.yellow.getRGB());
+
 			if(!TerrainTools.isRunnable(circuit.getTerrain(voiture.getPosition()))){//Si le terrain n'est pas Runnable
 				endgame = true;
 				System.out.println("perdu !!! Nombre de pas : "+(pas++));
 			}
 			if(circuit.getTerrain(voiture.getPosition()) == Terrain.EndLine){
 				endgame = true;
-				System.out.println("Gagné ! Game over ! Congrats! Nombre de pas : "+(pas++));
+				System.out.println("GagnÃ© ! Game over ! Congrats! Nombre de pas : "+(pas++));
 			}
 			pas++;
 			com = strategy.getCommande();
@@ -101,11 +100,11 @@ public class Simulation implements UpdateEventSender {
 		}
 	}
 
-	
+	@Override
 	public void add(UpdateEventListener listener) {
 		listeners.add(listener);
 	}
-	
+	@Override
 	public void update() {
 		for(UpdateEventListener listener:listeners)
 			listener.manageUpdate();		

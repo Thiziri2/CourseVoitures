@@ -2,7 +2,6 @@ package circuit;
 
 import java.util.ArrayList;
 
-import enums.Terrain;
 import geometrie.Vecteur;
 
 public class CircuitImpl implements Circuit{
@@ -32,7 +31,7 @@ public class CircuitImpl implements Circuit{
 	
 	public Terrain getTerrain(Vecteur v) {
 		return matrice[(int)v.getX()][(int)v.getY()];
-//renvoie l'elément en position v.x,v.y du terrain)
+//renvoie l'elÃ©ment en position v.x,v.y du terrain)
 	}
 	
 	public Vecteur getPointDepart() {
@@ -81,12 +80,10 @@ public class CircuitImpl implements Circuit{
 		  }
 		  return start;
 	  }
-	  public void setTerrain(int x, int y, Terrain t){//y : les colonnes, x : les lignes
-			matrice[x][y] = t;
-		}
 
-		public void filtre(Terrain[][] matrice) {
-
-		}
+	@Override
+	public void setTerrain(int j, int i, Terrain herbe) {
+		matrice[i][j]=herbe;
+	}
 
 }

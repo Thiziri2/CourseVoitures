@@ -1,14 +1,14 @@
 package strategy;
+
 import geometrie.*;
+import radar.*;
 
 import java.util.ArrayList;
 
-import dijkstra.DijkstraPointParPoint;
-import radar.Radar;
-import radar.RadarDijkstra;
+import voiture.Commande;
 import strategy.Strategy;
 import voiture.*;
-
+import Dijkstra.*;
 public class StrategyPointParPoint implements Strategy {
 
 	private ArrayList<Vecteur> listePoints;
@@ -29,7 +29,7 @@ public class StrategyPointParPoint implements Strategy {
 			listePoints.remove(cible);
 			cible = listePoints.get(0);//On prend le suivant
 		}
-		radar = new RadarDijkstra(radar.getCir(), voiture, radar.thetas(), new DijkstraPointParPoint(radar.getCir(), cible));
+		radar = new RadarDijk( radar.getCir(),voiture, radar.thetas(), new DijkstraPointParPoint(radar.getCir(), cible));
 		int index = radar.getBestIndex();// 1 est le pas
 		double [] angles = radar.thetas();
 		double angle = angles[index] * voiture.getBraquage();
@@ -51,4 +51,3 @@ public class StrategyPointParPoint implements Strategy {
 		return this.listeCommandes;
 	}
 }
-

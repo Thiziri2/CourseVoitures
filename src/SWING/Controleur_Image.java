@@ -1,4 +1,4 @@
-package observeurs;
+package SWING;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,10 +10,10 @@ import java.util.ArrayList;
 
 import geometrie.*;
 
-public class ControleurImage implements MouseListener {
+public class Controleur_Image implements MouseListener {
 	Image im;
 	private ArrayList<Vecteur> listePoints;
-	public ControleurImage(Image im){
+	public Controleur_Image(Image im){
 		this.im = im;
 		this.listePoints = new ArrayList<Vecteur>();
 	}
@@ -47,4 +47,3 @@ public class ControleurImage implements MouseListener {
 	}
 
 }
-

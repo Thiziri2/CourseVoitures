@@ -1,8 +1,5 @@
 package circuit;
 
-import java.io.FileNotFoundException;
-
-import enums.Terrain;
 import geometrie.Vecteur;
 
 public class CircuitFactoryFromFile{
@@ -13,7 +10,8 @@ public class CircuitFactoryFromFile{
 	  public CircuitFactoryFromFile(String filename){
 		  super();
 		  }
-	  public static Circuit build(String filename) throws FileNotFoundException{
+	  //pour la position de depart je l'est int�gr� dans build circuit
+	  public static Circuit build(String filename){
 		  Terrain[][] matrice=TerrainTools.lectureFichier(filename);
 		  CircuitImpl C=new CircuitImpl(matrice);
 		  C.setPtDepart(CircuitImpl.getStart(matrice));

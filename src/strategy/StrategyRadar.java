@@ -14,8 +14,8 @@ public class StrategyRadar implements Strategy{
 	}
 
 	public Commande getCommande() {
-		//Il faut savoir s'il faut tourner à gauche ou à droite, acc ou freiner
-		//L'angle doit être entre -1 et 1 donc il faut diviser par le braquege
+		//Il faut savoir s'il faut tourner Ã  gauche ou Ã  droite, acc ou freiner
+		//L'angle doit Ãªtre entre -1 et 1 donc il faut diviser par le braquege
 		int index = radar.getBestIndex();// 1 est le pas
 		double [] angles = radar.thetas();
 		double angle = angles[index] * v.getBraquage();
@@ -34,6 +34,5 @@ public class StrategyRadar implements Strategy{
 		return radar;
 	}
 }
-
 
 

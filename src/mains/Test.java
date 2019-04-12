@@ -5,10 +5,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import circuit.TerrainTools;
-import enums.Terrain;
-
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -42,6 +38,8 @@ public class Test {
 			liste3.add(i,new Commande((Math.random()*2)-1, v1.getMaxTurn()));//turn max vers la droite
 		}
 		
+		//System.out.println(circuit.getPointDepart());
+		
 		BufferedImage im=TerrainTools.imageFromCircuit(track);//on récupère l'image du circuit
 		
 		 for(int i=0;i<liste1.size();i++) {//on parcour la liste de commande liste1 et on applique le deplacement de v1
@@ -50,7 +48,7 @@ public class Test {
 			 
 			 int vx=(int) v1.getPosition().x;//on récupère la position de v1
 			 int vy=(int) v1.getPosition().y;
-			 im.setRGB(vx,vy,Color.BLACK.getRGB());//on modifie la couleur du pixel associé à la position (V1.x,v1.y)
+			 im.setRGB(vy,vx,Color.BLACK.getRGB());//on modifie la couleur du pixel associé à la position (V1.x,v1.y)
 		 }
 		 
 		for(int i=0;i<liste2.size();i++) {
@@ -59,7 +57,7 @@ public class Test {
 			 
 			 int vx=(int) v1.getPosition().x;
 			 int vy=(int) v1.getPosition() .y;
-			 im.setRGB(vx,vy,Color.BLACK.getRGB() );//on modifie la couleur du pixel associé à la position (V1.x,v1.y)
+			 im.setRGB(vy,vx,Color.BLACK.getRGB() );//on modifie la couleur du pixel associé à la position (V1.x,v1.y)
 		 }
 		
 		 for(int i=0;i<liste3.size();i++) {
@@ -68,10 +66,15 @@ public class Test {
 
 			 int vx=(int) v1.getPosition().x;
 			 int vy=(int) v1.getPosition() .y;
-			 im.setRGB(vx,vy,Color.BLACK.getRGB() );//on modifie la couleur du pixel associé à la position (V1.x,v1.y)
+			 im.setRGB(vy,vx,Color.BLACK.getRGB() );//on modifie la couleur du pixel associé à la position (V1.x,v1.y)
 		 }
-		
-		TerrainTools.saveIm(im, "circuit");
+		 
+		 try {
+	            File outputfile = new File("saved.png");
+	            ImageIO.write(im, "png", outputfile);
+	         } catch (IOException e) {
+	            System.out.println("Erreur lors de la sauvegarde");
+	         }
 		System.out.println("fait");
 		//System.out.println(liste1.get(2).getAcc());
 		

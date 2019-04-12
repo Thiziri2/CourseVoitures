@@ -4,10 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import radar.Radar;
+import SWING.ObserveurSWING;
 import circuit.*;
 import voiture.*;
 import geometrie.*;
+import radar.*;
 
 public class RadarObserver implements ObserveurImage, ObserveurSWING {
 	private Radar radar;

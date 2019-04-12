@@ -1,10 +1,12 @@
-package dijkstra;
+package Dijkstra;
 
 import geometrie.Vecteur;
 
 import java.util.Comparator;
 import java.util.concurrent.PriorityBlockingQueue;
+
 import circuit.Circuit;
+import circuit.Terrain;
 import circuit.TerrainTools;
 
 public class DijkstraPointParPoint extends Dijkstra{
@@ -33,7 +35,7 @@ public class DijkstraPointParPoint extends Dijkstra{
 		}
 		//PriorityBlockingQueue
 		comp = new ComparatorDijk(distance);
-		Q = new PriorityBlockingQueue<Vecteur>(cir.getHeight()*cir.getWidth(), comp);
+		Q = new PriorityBlockingQueue<>(cir.getHeight()*cir.getWidth(), comp);
 		for(int i=0; i<cir.getHeight(); i++){
 			for(int j=0; j<cir.getWidth(); j++){
 				if(distance[i][j]==0){//On rajoute la ligne d'arrivee
@@ -43,8 +45,8 @@ public class DijkstraPointParPoint extends Dijkstra{
 		}
 	}
 	public void algo(){
-		while(!Q.isEmpty()){//tant qu'il reste des points à explorer
-			//Extraction du point le plus proche de la ligne d'arrivée
+		while(!Q.isEmpty()){//tant qu'il reste des points Ã  explorer
+			//Extraction du point le plus proche de la ligne d'arrivÃ©e
 			Vecteur tete = Q.poll();
 			if(tete != null){
 //				System.out.println("La tete est : "+tete);

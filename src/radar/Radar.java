@@ -7,7 +7,5 @@ public interface Radar {
 	public double[] distancesInPixels(); // pour l'observer
 	public int getBestIndex(); // meilleur indice
 	public double[] thetas(); // angles de chaque faisceau
-	public int check();
 	public Circuit getCir();
 }
-

@@ -1,6 +1,5 @@
 package mains;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import circuit.*;
@@ -9,8 +8,8 @@ import strategy.StrategyListeCommande;
 import voiture.*;
 
 public class TestSimulation {
-//j'ai juste recopi le code du prof 
-	public static void main(String[] args) throws FileNotFoundException {
+//j'ai juste recopi� le code du prof 
+	public static void main(String[] args) {
 		String filename="1_safe.trk";
 		Circuit track=CircuitFactoryFromFile.build(filename) ;
 	    Voiture v=FerrariFactory.build(track);

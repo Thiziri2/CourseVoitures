@@ -51,17 +51,18 @@ public class Vecteur {
 	public String toString() {
 		return "Vecteur [x=" + x + ", y=" + y+ "]"; 
 	}
+	
 	public Vecteur addition(Vecteur v1) {
-		return new Vecteur(this.x+v1.x,this.y + v1.y);
+		return new Vecteur(this.x+v1.getX(),this.y + v1.getY());
 	}
 	public Vecteur soustraction(Vecteur v1) {
-		return new Vecteur(this.x-v1.x,this.y - v1.y);
+		return new Vecteur(this.x - v1.getX(),this.y - v1.getY());
 	}
 	public double prodScal(Vecteur v1) {
-		return (this.x*v1.x + this.y*v1.y);
+		return (x*v1.getX() + y*v1.getY());
 	}
 	public double prodVect(Vecteur v2) {
-		return this.x*v2.y-this.y*v2.x;
+		return this.x*v2.getY()-this.y*v2.getX();
 	}
 	
 	@Override
@@ -70,64 +71,35 @@ public class Vecteur {
 	}
 
 	public double norme() {
-		return Math.sqrt((this.prodScal(this)));
-	}
-	
-	public double angle(Vecteur v2) {
-		double norme1 = this.norme();
-		double norme2 = v2.norme();
-		if((norme1==0.0) || (norme2==0)) {
-			System.out.println("Un des vecteurs est nul ");
-			return 0.0;
-		}
-		double cos = (this.prodScal(v2))/(this.norme()*v2.norme());
-		System.out.println("cos = " + cos);
-		double acos = Math.acos(cos);
-		System.out.println("acos = " + acos);
-
-		double prodvect = this.prodVect(v2);
-		if(prodvect<0) {
-			return acos*(-1);
-		}
-		return acos;
+		return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
 	}
 	public Vecteur normalisation(){
-	double norme=this.norme();
-	if(norme==0){return null;}
-	return new Vecteur(this.x/norme,this.y/norme);
+		return new Vecteur(this.x/this.norme(), this.y/this.norme());
 	}
+	
+	public double angle(Vecteur b){
+		if(this.prodScal(b)/(this.norme()*b.norme())<-1 || this.prodScal(b)/(this.norme()*b.norme())>1){
+			System.out.println("L'angle n'est pas conforme");
+			return  500;//Code pour dire que le résultat obtenu est erroné
+		}
+		return Math.signum(this.prodVect(b))*Math.acos(this.prodScal(b)/(this.norme()*b.norme()));
+	}
+
 	public Vecteur multiplication(double k) {
 		return new Vecteur(this.x*k,this.y*k);
 	}
-	public Vecteur rotation(double theta) {
-		return new Vecteur(this.x*Math.cos(theta)-this.y*Math.sin(theta),this.x*Math.sin(theta)+this.y*Math.cos(theta));
+	public Vecteur rotation(double angle){
+		return new Vecteur(this.x*Math.cos(angle) - this.y*Math.sin(angle), this.x*Math.sin(angle) + this.y*Math.cos(angle));
 	}
-	public double dist(Vecteur v){
+	
+	public double distance(Vecteur v){
 		return Math.sqrt(Math.pow((this.x-v.x), 2) + Math.pow((this.y-v.y), 2));
 	}
 	public boolean estAutour(Vecteur cible, double rayon){
-		//Si le Vecteur courant (this) est � une distance <= au rayon
-		if(this.dist(cible)<=rayon)
+		//Si le Vecteur courant (this) est à une distance <= au rayon
+		if(this.distance(cible)<=rayon)
 			return true;
 		return false;
 	}
-	
-	/* 	public void additionVoid(Vecteur v1) {
-		this.x += v1.x;
-		this.y += v1.y;
-	} 	
-	    public void soustractionVoid(Vecteur v1) {
-		this.x -= v1.x;
-		this.y -= v1.y;
-	}
-	    public void multiplicationVoid(double k) {
-		this.x*=k;
-		this.y*=k;
-	}
-	    public void rotationVoid(double theta) {
-		double tempx = this.x;
-		tempx = this.x*Math.cos(theta)-this.y*Math.sin(theta);
-		this.y = this.x*Math.sin(theta)+this.y*Math.cos(theta);
-		this.x = tempx;
-	}*/
+
 }

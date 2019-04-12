@@ -14,4 +14,14 @@ public class Commande {
 	public double getTurn() {
 		return turn;
 	}
+	public void setAcc(double acc) {
+		this.acc = acc;
+	}
+	public void setTurn(double turn) {
+		this.turn = turn;
+	}
+	@Override
+	public String toString() {
+		return "Commande [acc=" + acc + ", turn=" + turn + "]";
+	}
 }

@@ -18,7 +18,7 @@ public class StrategySelector implements Strategy {
 	}
 	public Commande getCommande() {
 		for(int i=0; i<listStrat.size(); i++){
-			//if((listSelect.get(i)).iSelected())
+			if(listSelect.get(i).isOpen())
 				return listStrat.get(i).getCommande();
 		}
 		return null;

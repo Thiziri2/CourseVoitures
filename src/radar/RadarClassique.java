@@ -19,7 +19,7 @@ public class RadarClassique implements Radar {
 	private Circuit circuit;
 	private final double  EPSILON=0.1;
 	
-	public RadarClassique( Voiture voiture, Circuit circuit,double[] faisceaux) {
+	public RadarClassique(  Circuit circuit,Voiture voiture,double[] faisceaux) {
 		super();
 		this.faisceaux = faisceaux;
 		this.voiture = voiture;
@@ -102,12 +102,7 @@ public class RadarClassique implements Radar {
 	public void SetVoiture(Voiture voiture) {
 		this.voiture=voiture;
 	}
-	
-	public int check() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+
 	public Circuit getCir() {
 		// TODO Auto-generated method stub
 		return null;

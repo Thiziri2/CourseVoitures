@@ -1,8 +1,11 @@
 package strategy;
+
 import java.io.*;
 import java.util.ArrayList;
-import voiture.*;
 
+import voiture.*;
+import geometrie.*;
+import circuit.*;
 
 public class StrategyTools {
 	public static void saveListeCommande(ArrayList<Commande> liste, String filename){
@@ -38,4 +41,3 @@ public class StrategyTools {
 
 }
 }
-
